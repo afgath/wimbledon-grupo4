@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="wimbledon-persistencia"
+		transaction-type="RESOURCE_LOCAL">
+		
+		<class>wimbledon.modelo.Cancha</class>
+		<class>wimbledon.modelo.Draw</class>
+		<class>wimbledon.modelo.Drawintegrantes</class>
+		<class>wimbledon.modelo.Equipo</class>
+		<class>wimbledon.modelo.Jugador</class>
+		<class>wimbledon.modelo.Partido</class>
+		<class>wimbledon.modelo.Tipocancha</class>
+		<class>wimbledon.modelo.Tipodraw</class>
+		<class>wimbledon.modelo.Tipousuario</class>
+		<class>wimbledon.modelo.Torneo</class>
+		<class>wimbledon.modelo.Usuario</class>
+		<class>wimbledon.modelo.Ronda</class>
+		<class>wimbledon.modelo.Reservacancha</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://localhost:5432/wimbledon" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="postgres" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+		</properties>
+	</persistence-unit>
+</persistence>

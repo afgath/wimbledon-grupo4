@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+	<title>CU-08</title>
+	<h:outputStylesheet library="css" name="style.css" />
+
+
+</h:head>
+
+<h:body>
+
+	<div
+		style="width: 100%; background-color: #ffffff; display: inline-block; margin-top: 5px;">
+		<h1 align="center">PARTIDOS PROGRAMADOS</h1>
+	</div>
+	<div
+		style="width: 100%; background-color: #D5E8D4; display: inline-block; text-align: center; position: relative; padding-top: 10px;">
+		<h:form id="frmPartido">
+			<p:growl id="msg" />
+
+			<p:dataTable var="partido" value="#{listadoPartidos.losPartidos}"
+				selection="#{listadoPartidos.partidoSeleccionado}">
+
+				<p:ajax event="rowSelect"
+					listener="#{listadoPartidos.listenerCuentaSeleccionada}" />
+
+				<p:column>
+					<p:commandButton
+						value="#{partido.jugadorByJugador1.nombre} #{partido.jugadorByJugador1.apellido} | #{partido.jugadorByJugador2.nombre} #{partido.jugadorByJugador2.apellido}                             
+				                           #{partido.fecha}"
+						style="background-color: #EEEEEE; widht: 100%"
+						action="#{listadoPartidos.mostrarDialog(partido.idpartido)}"
+						oncomplete="#{listadoPartidos.partidoSeleccionado}" 
+						update=":frmPartido">
+						<p:ajax event="click"
+						listener="#{listadoPartidos.listenerPartidoSeleccionado}"
+						update=":frmPartido" />
+						</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<!-- ************************************************** -->
+			<!-- **			 DIÁLOGO GESTIÓN USUARIO			 ** -->
+			<!-- ************************************************** -->
+			<p:dialog id="dlgGestionPartido"
+				widgetVar="dlgGestionPartido" modal="true" draggable="true"
+				closable="false" resizable="true" responsive="true">
+
+				<p:messages id="message" autoUpdate="true" closable="true"
+					style="width: 100%;" />
+				<h:panelGrid>
+					<p:outputLabel binding="#{listadoPartidos.titulo}" />
+					<p:outputLabel binding="#{listadoPartidos.id}" style="display: none"/>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Umpires disponibles: " />
+					<p:outputLabel value="N/A" />
+
+					<p:outputLabel value="Fechas disponibles:" />
+					<p:outputLabel value="N/A" />
+
+					<p:outputLabel value="Horas disponibles:" />
+					<p:outputLabel value="N/A" />
+
+					<p:outputLabel value="Canchas disponibles:" />
+					<p:selectOneMenu binding="#{listadoPartidos.somCanchasDiponibles}">
+						<f:selectItems value="#{listadoPartidos.lasCanchasDisponibles}" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Cancelar" icon="ui-icon-close"
+						action="#{listadoPartidos.actionCerrarDialog}"
+						style="background-color: red;" update=":frmPartido" />
+
+					<p:commandButton value="Aceptar"
+						action="#{listadoPartidos.ActualizarAction}"
+						style="background-color: green;" update=":frmPartido" />
+				</h:panelGrid>
+
+			</p:dialog>
+			<!-- FIN DIÁLOGO GESTIÓN CUENTA -->
+
+		</h:form>
+
+
+
+	</div>
+</h:body>
+</html>
